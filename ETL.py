@@ -1,6 +1,7 @@
-# Will only work each 5 mins or so, gotta make scheduler work for that.
+# Will only work each 5 mins or so, gotta make a scheduler on cloud function later
 
-from UTILS import *
+from UTILS import init_db, get_most_recent_link, insert_rows, scrape_new_items
+import undetected_chromedriver as uc
 
 
 init_db()

@@ -9,6 +9,7 @@ import datetime
 import os
 from typing import *
 import sqlite3
+from fastapi import HTTPException
 
 DB_PATH = "robloxaccessory.db"
 TABLE_NAME = "roblox_accessories"
@@ -22,7 +23,7 @@ def init_db() -> None:
         conn.execute(
             f"""
             CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,       # Unique ID for each entry
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Name TEXT,
                 category TEXT,
                 price TEXT,
