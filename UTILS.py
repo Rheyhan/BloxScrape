@@ -10,6 +10,12 @@ import os
 from typing import *
 import sqlite3
 from fastapi import HTTPException
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import smtplib
+import json
+with open("creds.json", "r") as f:
+    credentials = json.load(f)
 
 DB_PATH = "robloxaccessory.db"
 TABLE_NAME = "roblox_accessories"
@@ -178,7 +184,7 @@ def scrape_new_items(driver, stop_link: Optional[str] = None) -> List[Tuple]:
                 ## Is the item limited
                 try:
                     thumbnail_element.find_element(
-                        By.XPATH, ".//div[@class='restriction-icon icon-limited-unique-label']"
+                        By.XPATH, ".//span[@class='restriction-icon icon-limited-unique-label']"
                     )
                     is_limited = True
                 except Exception:
@@ -233,3 +239,24 @@ def scrape_new_items(driver, stop_link: Optional[str] = None) -> List[Tuple]:
             )
         )
     return rows[::-1]   # Return in chronological order, so earliest will be on the last
+
+
+def send_email(text: str = ""):
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls()
+    s.login(credentials["email"], credentials["password"])
+
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "BloxScrape Error Notification"
+    message["From"] = credentials["email"]
+    message["To"] = credentials["send_to_email"]
+    text = f"""\
+    Hi, this is an automated email from your syntax :3.
+    The training has encountered an error.
+    {text}
+    """
+
+    part1 = MIMEText(text, "plain")
+    message.attach(part1)
+    s.sendmail(credentials["email"], credentials["send_to_email"], message.as_string())
+    s.close()
