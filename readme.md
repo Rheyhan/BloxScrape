@@ -8,7 +8,7 @@ Lightweight scraper + ETL for Roblox accessories, storing results in SQLite and 
 - `ETL.py` - one-shot ETL runner that scrapes new items and inserts into the DB
 - `fastAPI.py` - small read-only API to query the scraped data
 - `creds.json` - (not checked in) credentials and local chrome/driver paths
-- `robloxaccessory.db` / `test.db` - SQLite databases example (created at runtime)
+- `example.db` - SQLite databases example (created at runtime)
 
 **Overview**
 
