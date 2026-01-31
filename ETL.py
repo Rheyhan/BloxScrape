@@ -3,6 +3,8 @@
 from UTILS import init_db, get_most_recent_link, insert_rows, scrape_new_items, send_email
 import undetected_chromedriver as uc
 import json
+import datetime
+
 
 with open("creds.json", "r") as f:
     credentials = json.load(f)
@@ -13,7 +15,10 @@ try:
     last_link = get_most_recent_link()
     new_rows = scrape_new_items(driver, stop_link=last_link)
     inserted = insert_rows(new_rows)
+
+    # For logging!
     print(f"Inserted {inserted} new rows.")
+    print(f'New data collected at {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
 
 except Exception as e:
     send_email(f"An error occurred during scraping: {e}")
