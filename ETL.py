@@ -1,5 +1,4 @@
 # Will only work each 5 mins or so, gotta make a scheduler on cloud function later
-# Yes it works well.
 
 from UTILS import init_db, get_most_recent_link, insert_rows, scrape_new_items, send_email
 import undetected_chromedriver as uc
