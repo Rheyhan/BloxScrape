@@ -1,4 +1,5 @@
 # Will only work each 5 mins or so, gotta make a scheduler on cloud function later
+# This is a test, if this is on VPS, then the git autopull should work fine
 
 from UTILS import init_db, get_most_recent_link, insert_rows, scrape_new_items, send_email
 import undetected_chromedriver as uc
