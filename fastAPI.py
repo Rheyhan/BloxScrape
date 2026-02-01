@@ -146,7 +146,8 @@ def stats():
         "verified": verified,
         "limited": limited,
         "latest_timeCollected": latest,
-        "detail": {i['category']: i[1] for i in category[1:]}
+        "detail": {i['category']: i[1] for i in category[1:]},
+        "storage size_bytes": os.path.getsize(DB_PATH),
     }
 
 @app.get("/recent")
